@@ -13,6 +13,8 @@ namespace MergePdfs
 {
     public partial class Form1 : Form
     {
+        private List<string> FileNames = new List<string>();
+        IPdfMerger pdfMerger = new PdfOperationManager();
         public Form1()
         {
             InitializeComponent();
@@ -24,11 +26,15 @@ namespace MergePdfs
 
             if(openFileDialog1.ShowDialog() == DialogResult.OK)
             {
+                FileNames.Clear();
+                txtFiles.Text = string.Empty;
+
                 StringBuilder filenames = new StringBuilder();
 
                 foreach(var filename in openFileDialog1.FileNames)
                 {
                     filenames.AppendLine(Path.GetFileName(filename));
+                    FileNames.Add(filename);
                 }
 
                 txtFiles.Text = filenames.ToString();
@@ -38,7 +44,11 @@ namespace MergePdfs
 
         private void btnMergeFiles_Click(object sender, EventArgs e)
         {
-
+            if(FileNames.Any())
+            {
+                var mergedFile = pdfMerger.Merge(FileNames).Result;
+                MessageBox.Show($"File merging completed {mergedFile}");
+            }
         }
     }
 }

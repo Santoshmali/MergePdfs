@@ -9,6 +9,6 @@ namespace MergePdfs
 {
     public interface IPdfMerger
     {
-        Task Merge(string outputFilePath, params string[] filePaths);
+        Task<string> Merge(List<string> filePaths);
     }
 }
