@@ -34,6 +34,8 @@ namespace MergePdfs
             this.txtFiles = new System.Windows.Forms.TextBox();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.btnMergeFiles = new System.Windows.Forms.Button();
+            this.txtOutputFileName = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btnChooseFiles
@@ -60,10 +62,22 @@ namespace MergePdfs
             this.btnMergeFiles.UseVisualStyleBackColor = true;
             this.btnMergeFiles.Click += new System.EventHandler(this.btnMergeFiles_Click);
             // 
+            // txtOutputFileName
+            // 
+            resources.ApplyResources(this.txtOutputFileName, "txtOutputFileName");
+            this.txtOutputFileName.Name = "txtOutputFileName";
+            // 
+            // label1
+            // 
+            resources.ApplyResources(this.label1, "label1");
+            this.label1.Name = "label1";
+            // 
             // Form1
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.txtOutputFileName);
             this.Controls.Add(this.btnMergeFiles);
             this.Controls.Add(this.txtFiles);
             this.Controls.Add(this.btnChooseFiles);
@@ -80,6 +94,8 @@ namespace MergePdfs
         private System.Windows.Forms.TextBox txtFiles;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button btnMergeFiles;
+        private System.Windows.Forms.TextBox txtOutputFileName;
+        private System.Windows.Forms.Label label1;
     }
 }
 

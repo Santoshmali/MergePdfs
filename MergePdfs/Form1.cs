@@ -46,7 +46,7 @@ namespace MergePdfs
         {
             if(FileNames.Any())
             {
-                var mergedFile = pdfMerger.Merge(FileNames).Result;
+                var mergedFile = pdfMerger.Merge(FileNames, txtOutputFileName.Text).Result;
                 MessageBox.Show($"File merging completed {mergedFile}");
             }
         }

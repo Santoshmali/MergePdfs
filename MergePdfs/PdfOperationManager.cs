@@ -12,11 +12,13 @@ namespace MergePdfs
 {
     public class PdfOperationManager : IPdfMerger
     {
-        public Task<string> Merge(List<string> filePaths)
+        public Task<string> Merge(List<string> filePaths, string outputFileName)
         {
             filePaths.Sort();
 
-            string outputFilePath = $"{Path.GetDirectoryName(filePaths.FirstOrDefault())}\\MergedFile_{DateTime.Now:ddmmyyhhsstt}.pdf";
+            outputFileName = string.IsNullOrEmpty(outputFileName) ? $"MergedFile_{DateTime.Now:ddmmyyhhsstt}" : outputFileName;
+
+            string outputFilePath = $"{Path.GetDirectoryName(filePaths.FirstOrDefault())}\\{outputFileName}.pdf";
 
             PdfImportedPage importedPage;
 
@@ -28,9 +30,9 @@ namespace MergePdfs
 
             foreach (var file in filePaths)
             {
-                int pages = TotalPageCount(file);
-
                 PdfReader reader = new PdfReader(file);
+                int pages = reader.NumberOfPages;
+
                 //Add pages in new file  
                 for (int i = 1; i <= pages; i++)
                 {
@@ -45,17 +47,6 @@ namespace MergePdfs
             sourceDocument.Close();
 
             return Task.FromResult(outputFilePath);
-        }
-
-        private static int TotalPageCount(string file)
-        {
-            using (StreamReader sr = new StreamReader(System.IO.File.OpenRead(file)))
-            {
-                Regex regex = new Regex(@"/Type\s*/Page[^s]");
-                MatchCollection matches = regex.Matches(sr.ReadToEnd());
-
-                return matches.Count;
-            }
         }
     }
 }
